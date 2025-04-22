@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Techo Seguro Bienes Raíces</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Estilos personalizados -->
+  <style>
+    :root {
+      --color-principal: #052848;
+      --color-acento: #b29d5a;
+      --color-blanco: #ffffff;
+      --color-negro: #000000;
+      --color-gris-hover: #b0b0b0;
+    }
+
+    body {
+      background-color: var(--color-blanco);
+      color: var(--color-negro);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background-color: var(--color-blanco) !important;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .navbar .nav-link {
+      color: var(--color-negro);
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--color-acento);
+    }
+
+    .navbar .nav-link:not(.active):hover {
+      color: var(--color-gris-hover);
+    }
+
+    .navbar .nav-link:not(.active):hover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-gris-hover);
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+      color: var(--color-negro) !important;
+    }
+
+    /* BOTONES */
+    .btn-primario {
+      background-color: var(--color-acento);
+      color: var(--color-blanco);
+      border: none;
+    }
+
+    .btn-primario:hover {
+      background-color: #9e884c;
+      color: var(--color-blanco);
+    }
+
+    .btn-secundario {
+      background-color: transparent;
+      color: var(--color-negro);
+      border: none;
+      transition: color 0.3s;
+    }
+
+    .btn-secundario:hover {
+      color: var(--color-acento);
+    }
+
+    /* TARJETAS FLAT Y HOVER */
+    .card {
+      border: none;
+      border-radius: 0.5rem !important;
+      /* rounded-4 */
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card:hover .card-title {
+      color: var(--color-acento);
+    }
+
+    .img-cuadrada {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: var(--color-negro);
+      color: var(--color-blanco);
+    }
+
+    footer h5 {
+      color: var(--color-acento);
+      font-weight: bold;
+    }
+
+    footer p,
+    footer small {
+      color: var(--color-blanco);
+    }
+
+    .header-hero {
+      background-image: url('resources/static-images/header-bg.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+    }
+
+    .header-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      /* Oscurece un poco la imagen */
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-logo {
+      width: 10%;
+      max-width: 600px;
+      margin-bottom: 1rem;
+    }
+
+    .header-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .header-subtitle {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .dot-divider::after {
+      content: ' • ';
+      margin: 0 8px;
+      color: #ffffff;
+    }
+
+    .dot-divider:last-child::after {
+      content: '';
+    }
+
+    .propiedades-carousel {
+      overflow-x: auto;
+      display: flex;
+      scroll-snap-type: x mandatory;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .propiedades-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .propiedad-card {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      width: 280px;
+    }
+
+    .card.destacada {
+      background-color: var(--color-negro);
+      color: var(--color-blanco);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card.destacada .btn {
+      background-color: var(--color-acento);
+      color: var(--color-blanco);
+      border: none;
+    }
+
+    .card.destacada .btn:hover {
+      background-color: #a68c4d;
+    }
+
+    .carousel-item .row {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .card.destacada {
+      background-color: var(--color-negro);
+      color: var(--color-blanco);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card.destacada .btn {
+      background-color: var(--color-acento);
+      color: var(--color-blanco);
+      border: none;
+    }
+
+    .card.destacada .btn:hover {
+      background-color: #a68c4d;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="resources/static-images/logo-white-bg.png" alt="Techo Seguro" style="height: 50px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Propiedades</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header con fondo fijo -->
+  <section class="header-hero">
+    <div class="container header-content">
+      <img src="resources/static-images/logo-white-typo.png" style="max-width: 40%;" alt="Logo Techo Seguro"
+        class="img-header">
+      <h1 class="header-title">+7 años de experiencia acompañandote en cada paso.</h1>
+      <p class="header-subtitle">
+        <span class="dot-divider">Profesionalismo</span>
+        <span class="dot-divider">Seguridad</span>
+        <span>Confianza</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <h5 class="text-center text-principal">Propiedades destacadas</h5>
+      <br>
+      <div class="d-none d-md-block">
+        <div id="carouselPropiedades" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+              <br>
+              <div class="row  justify-content-center">
+                <!-- Tarjeta 1 -->
+                <div class="col-md-3">
+                  <div class="card h-100">
+                    <img src="resources/static-images/ejemplo.jpg" class="card-img-top img-cuadrada" alt="Casa 1">
+                    <div class="card-body">
+                      <h5 class="card-title">Casa en Santa Tecla</h5>
+                      <p class="card-text">3 habitaciones · 2 baños · $135,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Tarjeta 2 -->
+                <div class="col-md-3">
+                  <div class="card h-100">
+                    <img src="resources/static-images/default.png" class="card-img-top img-cuadrada" alt="Casa 2">
+                    <div class="card-body">
+                      <h5 class="card-title">Apartamento en Escalón</h5>
+                      <p class="card-text">2 habitaciones · 2 baños · $95,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Tarjeta 3 -->
+                <div class="col-md-3">
+                  <div class="card h-100">
+                    <img src="resources/static-images/default.png" class="card-img-top img-cuadrada" alt="Casa 3">
+                    <div class="card-body">
+                      <h5 class="card-title">Casa en San Miguel</h5>
+                      <p class="card-text">4 habitaciones · 3 baños · $160,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: llamada a la acción -->
+            <div class="carousel-item">
+              <br>
+              <div class="row justify-content-center">
+                <!-- Tarjeta 4 -->
+                <div class="col-md-3">
+                  <div class="card h-100">
+                    <img src="resources/static-images/default.png" class="card-img-top img-cuadrada" alt="Casa 4">
+                    <div class="card-body">
+                      <h5 class="card-title">Villa en La Libertad</h5>
+                      <p class="card-text">5 habitaciones · 4 baños · $250,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Tarjeta 5 -->
+                <div class="col-md-3">
+                  <div class="card h-100">
+                    <img src="resources/static-images/default.png" class="card-img-top img-cuadrada" alt="Casa 4">
+                    <div class="card-body">
+                      <h5 class="card-title">Villa en La Libertad</h5>
+                      <p class="card-text">5 habitaciones · 4 baños · $250,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card destacada h-100 p-4 rounded-4">
+                    <h5 class="card-title">Revisa nuestro</h5>
+                    <a href="#" class="btn w-100 mt-2">Catálogo completo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Controles -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselPropiedades"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselPropiedades"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="d-block d-md-none">
+        <div id="carouselPropiedadesMobile" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+              <div class="row justify-content-center">
+                <!-- Propiedad 1 -->
+                <div class="col-6 mb-6">
+                  <div class="card h-100">
+                    <img src="resources/static-images/ejemplo.jpg" class="card-img-top img-cuadrada" alt="Casa">
+                    <div class="card-body">
+                      <h5 class="card-title">Casa en Santa Tecla</h5>
+                      <p class="card-text">3 habitaciones · 2 baños · $135,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Propiedad 2 -->
+                <div class="col-6 mb-6">
+                  <div class="card h-100">
+                    <img src="resources/static-images/default.png" class="card-img-top img-cuadrada" alt="Casa">
+                    <div class="card-body">
+                      <h5 class="card-title">Apartamento en Escalón</h5>
+                      <p class="card-text">2 habitaciones · 2 baños · $95,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+              <div class="row justify-content-center">
+                <!-- Propiedad 3 -->
+                <div class="col-6 mb-6">
+                  <div class="card h-100">
+                    <img src="resources/static-images/default.png" class="card-img-top img-cuadrada" alt="Casa">
+                    <div class="card-body">
+                      <h5 class="card-title">Casa en San Miguel</h5>
+                      <p class="card-text">4 habitaciones · 3 baños · $160,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Propiedad 4 -->
+                <div class="col-6 mb-6">
+                  <div class="card h-100">
+                    <img src="resources/static-images/default.png" class="card-img-top img-cuadrada" alt="Casa">
+                    <div class="card-body">
+                      <h5 class="card-title">Villa en La Libertad</h5>
+                      <p class="card-text">5 habitaciones · 4 baños · $250,000</p>
+                      <a href="#" class="btn btn-secundario w-100">Ver más</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+              <div class="row justify-content-center">
+                <!-- Propiedad 4 -->
+                <div class="col-6 mb-6">
+                  <div class="card destacada h-100 p-4 rounded-4">
+                    <h5 class="card-title">Revisa nuestro</h5>
+                    <a href="#" class="btn w-100 mt-2">Catálogo completo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Controles -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselPropiedadesMobile"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselPropiedadesMobile"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-5">
+    <div class="container text-center text-md-start">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5>Techo Seguro</h5>
+          <p>Comprometidos con ofrecerte propiedades seguras, accesibles y con el respaldo de una empresa responsable.
+          </p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contacto</h5>
+          <p>San Salvador, El Salvador</p>
+          <p>Tel: (503) 1234-5678</p>
+          <p>Email: contacto@techoseguro.com</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Redes Sociales</h5>
+          <p>Facebook · Instagram · WhatsApp</p>
+        </div>
+      </div>
+      <hr class="border-light">
+      <div class="text-center">
+        <small>© 2025 Techo Seguro Bienes Raíces. Todos los derechos reservados.</small>
+        <small>© 2025 Developed by Alexis Figueroa.</small>
+        <p><small>Icons powered by <a href="https://iconos8.es/icons/color" target="_blank"
+              class="text-white text-decoration-underline">Iconos8</a></small></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
